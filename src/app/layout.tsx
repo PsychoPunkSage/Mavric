@@ -1,26 +1,30 @@
-import { Inter } from 'next/font/google'
-import './styles/globals.css'
-import { Providers } from './providers'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import { ClientProvider } from "@/providers";
+import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-    title: 'AI Trading Agent',
-    description: 'AI-powered cross-chain trading agent built for ETHIndia 2024',
-}
-
+export const metadata: Metadata = {
+  title: "Stater Template for Rainbowkit and Next Js",
+  description:
+    "This is a stater template which uses Next Js 14 (app router) with Rainbowkit, Wagm, Viem and Tailwind CSS. We have shown how you can connect to your wallet i.e. metamask wallet, created a smaple todo app example so that you can see how to write and read a smart contract from client side.",
+};
 export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
-    return (
-        <html lang="en">
-            <body className={inter.className}>
-                <Providers>
-                    {children}
-                </Providers>
-            </body>
-        </html>
-    )
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <>
+      <html lang="en">
+        <body className={inter.className}>
+          <ClientProvider>{children}</ClientProvider>
+          <Toaster position="top-right" />
+        </body>
+      </html>
+    </>
+  );
 }
